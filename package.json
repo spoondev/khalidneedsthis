@@ -1,0 +1,22 @@
+{
+  "name": "dbscripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "vols": "node index2.js"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chance": "^1.0.18",
+    "faker": "^4.1.0",
+    "lodash": "^4.17.11",
+    "md5": "^2.2.1",
+    "moment": "^2.24.0",
+    "natural-filename-generator": "^1.0.0"
+  }
+}

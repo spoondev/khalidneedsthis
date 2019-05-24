@@ -1,0 +1,32 @@
+sudo docker pull mcr.microsoft.com/mssql/server:2017-latest
+
+# setup instance >>
+sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Strong!Password007' \
+   -p 1433:1433 --name sql1 \
+   -d mcr.microsoft.com/mssql/server:2017-latest
+
+# login-to instance
+sudo docker exec -it sql1 "bash"
+
+#sql terminal
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Strong!Password007'
+
+
+SELECT total_physical_memory_kb/1024 FROM sys.dm_os_sys_memory WITH (NOLOCK) OPTION (RECOMPILE);
+
+sudo docker stop sql1
+
+CREATE DATABASE TestDB
+SELECT Name from sys.Databases
+GO
+
+USE TestDB
+CREATE TABLE Inventory (id INT, name NVARCHAR(50), quantity INT)
+INSERT INTO Inventory VALUES (1, 'banana', 150); INSERT INTO Inventory VALUES (2, 'orange', 154);
+INSERT INTO Inventory VALUES (3, 'apple', 10); INSERT INTO Inventory VALUES (2, 'mango', 190);
+GO
+SELECT * FROM Inventory WHERE quantity > 152;
+GO
+
+curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/msprod.repo
+
